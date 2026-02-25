@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房县樱桃 - 线上预约订购平台 | 顺丰速运合作</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 新增SEO标签，帮助搜索引擎识别内容 -->
+    <meta name="keywords" content="房县樱桃,十堰樱桃,房县樱桃预约,房县樱桃顺丰配送,房县樱桃购买">
+    <meta name="description" content="十堰房县樱桃线上预约平台，与顺丰速运合作，产地直供新鲜樱桃，支持在线预约下单，冷链配送新鲜直达！">
+    <script>
+        // 配置Tailwind自定义主题
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cherry: {
+                            red: '#E63946',
+                            light: '#FFA69E',
+                            dark: '#77070F'
+                        },
+                        green: {
+                            leaf: '#457B9D',
+                            light: '#A8DADC'
+                        },
+                        sf: '#ED1C24' // 顺丰红
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            }
+        }
+        /* 隐藏原生日期选择器的日历图标，统一样式 */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            background-color: #E63946;
+            padding: 2px;
+            border-radius: 3px;
+        }
+        /* 强制日期输入框的占位符和文字为中文 */
+        input[type="date"] {
+            color: #374151;
+        }
+        input[type="date"]:before {
+            content: attr(placeholder) !important;
+            color: #9CA3AF;
+            margin-right: 0.5em;
+        }
+        input[type="date"]:focus:before,
+        input[type="date"]:valid:before {
+            content: "";
+        }
+    </style>
+    <!-- 引入中文日期选择器插件 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/laydate/2.8.5/laydate.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/laydate/2.8.5/theme/default/laydate.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-apple text-cherry-red text-2xl"></i>
+                <h1 class="text-xl font-bold text-cherry-dark">房县樱桃</h1>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-cherry-red transition">首页</a>
+                <a href="#product" class="text-gray-700 hover:text-cherry-red transition">产品介绍</a>
+                <a href="#booking" class="text-gray-700 hover:text-cherry-red transition">在线预约</a>
+                <a href="#sf-coop" class="text-gray-700 hover:text-cherry-red transition">顺丰合作</a>
+                <a href="#contact" class="text-gray-700 hover:text-cherry-red transition">联系我们</a>
+            </div>
+            <button class="md:hidden text-gray-700" id="menuBtn">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </nav>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white px-4 py-2 shadow-lg">
+            <div class="flex flex-col space-y-3 py-2">
+                <a href="#home" class="text-gray-700 hover:text-cherry-red transition py-2">首页</a>
+                <a href="#product" class="text-gray-700 hover:text-cherry-red transition py-2">产品介绍</a>
+                <a href="#booking" class="text-gray-700 hover:text-cherry-red transition py-2">在线预约</a>
+                <a href="#sf-coop" class="text-gray-700 hover:text-cherry-red transition py-2">顺丰合作</a>
+                <a href="#contact" class="text-gray-700 hover:text-cherry-red transition py-2">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页横幅 -->
+    <section id="home" class="relative h-[80vh] min-h-[600px] bg-cover bg-center" style="background-image: url('https://img1.baidu.com/it/u=1234567890,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=1920&h=1080');">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="container mx-auto px-4 h-full flex flex-col justify-center relative z-10">
+            <h2 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white text-shadow mb-4">
+                十堰房县樱桃
+            </h2>
+            <p class="text-[clamp(1rem,2vw,1.5rem)] text-white text-shadow mb-8 max-w-2xl">
+                天然生长 · 果肉饱满 · 酸甜可口 · 顺丰速运 · 新鲜直达
+            </p>
+            <a href="#booking" class="bg-cherry-red hover:bg-cherry-dark text-white font-bold py-3 px-8 rounded-lg inline-block transition duration-300 w-fit">
+                立即预约 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 产品介绍 -->
+    <section id="product" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-cherry-dark">房县樱桃 · 自然之味</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 产品特点1 -->
+                <div class="bg-gray-50 rounded-xl p-6 card-hover">
+                    <div class="w-16 h-16 bg-cherry-light/30 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-leaf text-2xl text-cherry-red"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-cherry-dark">产地直供</h3>
+                    <p class="text-gray-600">
+                        精选十堰房县核心产区樱桃，天然生长，不催熟、不打蜡，保留樱桃最本真的味道。
+                    </p>
+                </div>
+                
+                <!-- 产品特点2 -->
+                <div class="bg-gray-50 rounded-xl p-6 card-hover">
+                    <div class="w-16 h-16 bg-cherry-light/30 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-heart text-2xl text-cherry-red"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-cherry-dark">营养丰富</h3>
+                    <p class="text-gray-600">
+                        富含维生素C、铁元素等多种营养成分，果肉饱满多汁，酸甜适中，老少皆宜。
+                    </p>
+                </div>
+                
+                <!-- 产品特点3 -->
+                <div class="bg-gray-50 rounded-xl p-6 card-hover">
+                    <div class="w-16 h-16 bg-cherry-light/30 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-clock-o text-2xl text-cherry-red"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-cherry-dark">新鲜直达</h3>
+                    <p class="text-gray-600">
+                        现摘现发，全程冷链运输，与顺丰速运深度合作，确保樱桃以最新鲜的状态送达您手中。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 产品规格 -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8 text-cherry-dark">产品规格与价格</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 规格1 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <img src="https://img2.baidu.com/it/u=0987654321,0987654321&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=400" alt="房县樱桃 精选装 2斤装 单果直径≥22mm 产地直供" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 text-cherry-dark">精选装</h4>
+                            <p class="text-gray-600 mb-4">净重2斤 | 单果直径≥22mm</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-cherry-red">¥88</span>
+                                <button class="bg-cherry-red hover:bg-cherry-dark text-white py-2 px-4 rounded-lg transition add-to-cart" data-type="精选装" data-price="88">
+                                    立即预约
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 规格2 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <img src="https://img3.baidu.com/it/u=1122334455,1122334455&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=400" alt="房县樱桃 精品装 4斤装 单果直径≥24mm 产地直供" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 text-cherry-dark">精品装</h4>
+                            <p class="text-gray-600 mb-4">净重4斤 | 单果直径≥24mm</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-cherry-red">¥158</span>
+                                <button class="bg-cherry-red hover:bg-cherry-dark text-white py-2 px-4 rounded-lg transition add-to-cart" data-type="精品装" data-price="158">
+                                    立即预约
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 规格3 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <img src="https://img0.baidu.com/it/u=5566778899,5566778899&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=400" alt="房县樱桃 尊享装 8斤装 单果直径≥26mm 产地直供" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 text-cherry-dark">尊享装</h4>
+                            <p class="text-gray-600 mb-4">净重8斤 | 单果直径≥26mm</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-cherry-red">¥298</span>
+                                <button class="bg-cherry-red hover:bg-cherry-dark text-white py-2 px-4 rounded-lg transition add-to-cart" data-type="尊享装" data-price="298">
+                                    立即预约
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 在线预约 -->
+    <section id="booking" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-cherry-dark">在线预约订购</h2>
+            
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <form id="bookingForm" class="space-y-6">
+                    <!-- 产品选择 -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2" for="productType">
+                            产品类型 <span class="text-red-500">*</span>
+                        </label>
+                        <select id="productType" name="productType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50">
+                            <option value="">请选择产品类型</option>
+                            <option value="精选装" data-price="88">精选装 (2斤) - ¥88</option>
+                            <option value="精品装" data-price="158">精品装 (4斤) - ¥158</option>
+                            <option value="尊享装" data-price="298">尊享装 (8斤) - ¥298</option>
+                        </select>
+                    </div>
+                    
+                    <!-- 数量选择 -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2" for="quantity">
+                            购买数量 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex items-center">
+                            <button type="button" class="px-3 py-2 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200 transition" id="decreaseBtn">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <input type="number" id="quantity" name="quantity" min="1" value="1" class="w-full px-4 py-3 border-y border-gray-300 text-center focus:outline-none">
+                            <button type="button" class="px-3 py-2 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200 transition" id="increaseBtn">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 配送时间 -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2" for="deliveryDate">
+                            期望配送时间 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="deliveryDate" name="deliveryDate" placeholder="请选择配送日期" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50">
+                    </div>
+                    
+                    <!-- 联系人信息 -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="name">
+                                联系人姓名 <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="name" name="name" placeholder="请输入您的姓名" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="phone">
+                                联系电话 <span class="text-red-500">*</span>
+                            </label>
+                            <input type="tel" id="phone" name="phone" placeholder="请输入您的手机号码" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50">
+                        </div>
+                    </div>
+                    
+                    <!-- 配送地址 -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2" for="address">
+                            配送地址 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="address" name="address" rows="3" placeholder="请输入详细配送地址" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50"></textarea>
+                    </div>
+                    
+                    <!-- 总价展示 -->
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                        <span class="text-xl font-bold">总价：</span>
+                        <span id="totalPrice" class="text-2xl font-bold text-cherry-red">¥0</span>
+                    </div>
+                    
+                    <!-- 提交按钮 -->
+                    <button type="submit" class="w-full bg-cherry-red hover:bg-cherry-dark text-white font-bold py-4 px-6 rounded-lg transition duration-300 text-lg">
+                        确认预约并支付
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 顺丰合作 -->
+    <section id="sf-coop" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-cherry-dark">顺丰速运 · 全程护航</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://img0.baidu.com/it/u=123123123,123123123&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=600" alt="顺丰速运合作 房县樱桃冷链配送" class="rounded-xl shadow-lg w-full">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-cherry-dark">专业冷链 · 新鲜保障</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-sf text-xl mt-1 mr-3"></i>
+                            <p>与顺丰速运达成深度战略合作，专属冷链运输通道，确保樱桃新鲜度</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-sf text-xl mt-1 mr-3"></i>
+                            <p>全程温控监控，从房县产地直采直发，减少中间环节，48小时新鲜直达</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-sf text-xl mt-1 mr-3"></i>
+                            <p>顺丰专业包装，防震防压，最大程度保护樱桃果实完整</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-sf text-xl mt-1 mr-3"></i>
+                            <p>全国大部分地区包邮，偏远地区除外，支持全程物流轨迹查询</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-sf text-xl mt-1 mr-3"></i>
+                            <p>顺丰保价服务，如有损坏，按价赔偿，让您购物无忧</p>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-8 bg-sf/10 p-6 rounded-lg">
+                        <p class="text-center font-bold text-sf text-lg">
+                            顺丰速运 400-811-1111
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-cherry-dark">联系我们</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- 联系方式 -->
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold mb-6 text-cherry-dark">联系方式</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone text-cherry-red text-xl w-8"></i>
+                            <span class="ml-4 text-gray-700">客服热线：400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-wechat text-cherry-red text-xl w-8"></i>
+                            <span class="ml-4 text-gray-700">微信客服：fxyt123456</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-cherry-red text-xl w-8"></i>
+                            <span class="ml-4 text-gray-700">邮箱：service@fxcherry.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker text-cherry-red text-xl w-8"></i>
+                            <span class="ml-4 text-gray-700">地址：湖北省十堰市房县城关镇</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-clock-o text-cherry-red text-xl w-8"></i>
+                            <span class="ml-4 text-gray-700">工作时间：8:00-20:00 (全年无休)</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-4 text-cherry-dark">关注我们</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-cherry-red text-white flex items-center justify-center hover:bg-cherry-dark transition">
+                                <i class="fa fa-weibo"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-cherry-red text-white flex items-center justify-center hover:bg-cherry-dark transition">
+                                <i class="fa fa-wechat"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-cherry-red text-white flex items-center justify-center hover:bg-cherry-dark transition">
+                                <i class="fa fa-video-camera"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 留言表单 -->
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold mb-6 text-cherry-dark">在线留言</h3>
+                    <form id="messageForm" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="msgName">
+                                您的姓名 <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="msgName" name="msgName" placeholder="请输入您的姓名" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="msgPhone">
+                                联系电话 <span class="text-red-500">*</span>
+                            </label>
+                            <input type="tel" id="msgPhone" name="msgPhone" placeholder="请输入您的手机号码" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="msgContent">
+                                留言内容 <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="msgContent" name="msgContent" rows="4" placeholder="请输入您想咨询的问题" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cherry-red/50"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-cherry-red hover:bg-cherry-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            提交留言
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-cherry-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">房县樱桃</h3>
+                    <p class="text-gray-300 mb-4">
+                        源自湖北十堰房县，天然生长的美味樱桃，顺丰速运全程护航，新鲜直达您的餐桌。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fa fa-video-camera"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white transition">首页</a></li>
+                        <li><a href="#product" class="text-gray-300 hover:text-white transition">产品介绍</a></li>
+                        <li><a href="#booking" class="text-gray-300 hover:text-white transition">在线预约</a></li>
+                        <li><a href="#sf-coop" class="text-gray-300 hover:text-white transition">顺丰合作</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">配送说明</h3>
+                    <ul class="space-y-2">
+                        <li><span class="text-gray-300">顺丰冷链配送</span></li>
+                        <li><span class="text-gray-300">48小时新鲜直达</span></li>
+                        <li><span class="text-gray-300">全国大部分地区包邮</span></li>
+                        <li><span class="text-gray-300">支持物流轨迹查询</span></li>
+                        <li><span class="text-gray-300">破损包赔服务</span></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone w-6"></i>
+                            <span class="text-gray-300">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-wechat w-6"></i>
+                            <span class="text-gray-300">fxyt123456</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope w-6"></i>
+                            <span class="text-gray-300">service@fxcherry.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker w-6"></i>
+                            <span class="text-gray-300">湖北省十堰市房县城关镇</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2025 房县樱桃 版权所有 | 与顺丰速运深度合作</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 数量增减
+        const decreaseBtn = document.getElementById('decreaseBtn');
+        const increaseBtn = document.getElementById('increaseBtn');
+        const quantityInput = document.getElementById('quantity');
+        const productTypeSelect = document.getElementById('productType');
+        const totalPriceElement = document.getElementById('totalPrice');
+
+        // 计算总价
+        function calculateTotalPrice() {
+            const price = productTypeSelect.options[productTypeSelect.selectedIndex]?.dataset.price || 0;
+            const quantity = parseInt(quantityInput.value) || 1;
+            const total = price * quantity;
+            totalPriceElement.textContent = `¥${total}`;
+        }
+
+        // 减数量
+        decreaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                calculateTotalPrice();
+            }
+        });
+
+        // 加数量
+        increaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+            calculateTotalPrice();
+        });
+
+        // 产品类型变化
+        productTypeSelect.addEventListener('change', calculateTotalPrice);
+        // 数量输入变化
+        quantityInput.addEventListener('input', calculateTotalPrice);
+
+        // 预约按钮点击
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const type = this.dataset.type;
+                const price = this.dataset.price;
+                
+                // 选中对应产品
+                for (let i = 0; i < productTypeSelect.options.length; i++) {
+                    if (productTypeSelect.options[i].value === type) {
+                        productTypeSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+                
+                // 重置数量为1
+                quantityInput.value = 1;
+                // 计算总价
+                calculateTotalPrice();
+                
+                // 滚动到预约表单
+                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 预约表单提交
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 简单表单验证
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const deliveryDate = document.getElementById('deliveryDate').value;
+            
+            if (!name || !phone || !address || !deliveryDate || !productTypeSelect.value) {
+                alert('请填写完整的预约信息！');
+                return;
+            }
+            
+            // 模拟支付流程
+            alert(`预约成功！您预约了${quantityInput.value}份${productTypeSelect.value}，总价${totalPriceElement.textContent}，我们将尽快与您联系确认支付事宜。`);
+            this.reset();
+            totalPriceElement.textContent = '¥0';
+        });
+
+        // 留言表单提交
+        document.getElementById('messageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const msgName = document.getElementById('msgName').value;
+            const msgPhone = document.getElementById('msgPhone').value;
+            const msgContent = document.getElementById('msgContent').value;
+            
+            if (!msgName || !msgPhone || !msgContent) {
+                alert('请填写完整的留言信息！');
+                return;
+            }
+            
+            alert('留言提交成功！我们将尽快与您联系。');
+            this.reset();
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+
+        // 初始化中文日期选择器
+        $(function() {
+            laydate.render({
+                elem: '#deliveryDate', // 绑定输入框ID
+                lang: 'cn', // 强制中文显示
+                type: 'date', // 只选日期
+                format: 'yyyy年MM月dd日', // 显示格式：2025年05月20日
+                placeholder: '请选择配送日期',
+                done: function(value, date, endDate) {
+                    console.log('选择的日期：', value); // 可选：打印选中的日期
+                }
+            });
+        });
+    </script>
+</body>
+</html>
